@@ -5,12 +5,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:frontend": "vite build",
+    "build:backend": "prisma generate && tsc --project tsconfig.server.json",
+    "start": "node dist/server.js",
+    "start:backend": "prisma migrate deploy && node dist/server.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "server": "NODE_ENV=development ts-node-dev --transpile-only --no-notify src/server.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "deploy": "npm run build && gh-pages -d dist"
+    "prisma:deploy": "prisma migrate deploy"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.0",

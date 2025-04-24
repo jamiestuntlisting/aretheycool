@@ -4,7 +4,8 @@ import { PrismaClient, Actor, Rating } from '@prisma/client';
 
 const prisma = new PrismaClient();
 const app = express();
-const port = 3001;
+// Use port from environment variable for deployment, fallback to 3001 for local
+const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -242,5 +243,6 @@ app.get('/api/actors/bottom', async (_req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  // Log the actual port the server is listening on
+  console.log(`Server running on port ${port}`);
 }); 

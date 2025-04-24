@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "CommonJS"
+  },
+  "include": ["src/server.ts", "src/types.ts", "prisma/**/*.ts"],
+  "exclude": ["node_modules", "src/**/*.tsx", "src/main.tsx", "src/vite-env.d.ts"]
+} 
