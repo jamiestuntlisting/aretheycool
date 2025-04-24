@@ -84,7 +84,6 @@ out
 
 # Nuxt.js build output
 .nuxt
-dist
 
 # Nuxt.js static build output
 .output
@@ -141,3 +140,4 @@ prisma/dev.db-journal
 
 # Vite build output
 node_modules
+!docs

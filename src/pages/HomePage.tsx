@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Input, Button, Text, VStack } from '@chakra-ui/react';
+import { Box, Input, Button, Text, VStack, Spinner, Alert, AlertIcon } from '@chakra-ui/react';
 import { ActorList } from '../components/ActorList';
 import { Actor } from '../types';
 import { useActorModal } from '../hooks/useActorModal';
@@ -38,7 +38,12 @@ export function HomePage({ onOpenModal }: HomePageProps) {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/actors?search=${encodeURIComponent(currentSearchTerm)}`);
+      // Modify the URL based on whether there's a search term
+      const url = currentSearchTerm
+        ? `${API_URL}/actors?search=${encodeURIComponent(currentSearchTerm)}`
+        : `${API_URL}/actors`; // Fetch all if search term is empty
+
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Failed to fetch actors');
       }
@@ -75,7 +80,18 @@ export function HomePage({ onOpenModal }: HomePageProps) {
         />
       </Box>
 
-      {/* Consider adding loading/error states here */}
+      {/* Loading State */}
+      {loading && <Spinner size="xl" display="block" mx="auto" my={10} />}
+
+      {/* Error State */}
+      {error && !loading && (
+        <Alert status="error" borderRadius="lg" shadow="sm">
+          <AlertIcon />
+          {error}
+        </Alert>
+      )}
+
+      {/* No Results Message */}
       {searchTerm && !loading && !error && actors.length === 0 && (
         <Box textAlign="center" p={6} bg="white" borderRadius="lg" shadow="sm">
           <Text mb={4}>No actors found matching "{searchTerm}"</Text>
@@ -85,11 +101,14 @@ export function HomePage({ onOpenModal }: HomePageProps) {
         </Box>
       )}
 
-      <ActorList
-        actors={actors}
-        onRate={(mode, actor) => onOpenModal(mode, actor)} // Pass modal opener
-        onViewHistory={() => { console.log('View History Clicked - Connect handler')}} // Connect if needed
-      />
+      {/* Actor List - Render only if not loading and no error */}
+      {!loading && !error && (
+        <ActorList
+          actors={actors}
+          onRate={(mode, actor) => onOpenModal(mode, actor)} // Pass modal opener
+          onViewHistory={() => { console.log('View History Clicked - Connect handler')}} // Connect if needed
+        />
+      )}
       {/* Note: The Add/Rate modal itself will likely live in App.tsx */}
     </VStack>
   );

@@ -269,7 +269,8 @@ function AppContent() {
 function App() {
   return (
     <ChakraProvider>
-      <Router>
+      {/* Add basename for GitHub Pages deployment */}
+      <Router basename="/aretheycool/">
         <AppContent />
       </Router>
     </ChakraProvider>
