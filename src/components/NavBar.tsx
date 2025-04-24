@@ -5,6 +5,9 @@ import { Box, Flex, Link, Heading, Spacer, Image } from '@chakra-ui/react';
 export function NavBar() {
   const location = useLocation();
 
+  // Construct the correct logo path using the base URL
+  const logoSrc = `${import.meta.env.BASE_URL}logo2.s.png`;
+
   const linkStyles = (path: string) => ({
     fontWeight: location.pathname === path ? 'bold' : 'normal',
     color: location.pathname === path ? 'blue.600' : 'gray.600',
@@ -20,7 +23,7 @@ export function NavBar() {
       <Flex align="center">
         <Link as={RouterLink} to="/" _hover={{ textDecoration: 'none' }} mr={8}>
           <Image 
-            src="/logo2.s.png" 
+            src={logoSrc}
             alt="Are They Cool? Logo" 
             maxH="40px"
           />
