@@ -140,5 +140,4 @@ prisma/dev.db
 prisma/dev.db-journal
 
 # Vite build output
-dist 
 node_modules

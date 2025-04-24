@@ -161,9 +161,10 @@ app.post('/api/actors/:id/ratings', async (req: Request, res: Response) => {
       timestamp: updatedActor.ratings[0]?.createdAt || updatedActor.createdAt,
       ratingCount: ratingCount,
     });
+    return;
   } catch (error) {
     console.error('Error adding rating:', error);
-    res.status(500).json({ error: 'Failed to add rating' });
+    return res.status(500).json({ error: 'Failed to add rating' });
   }
 });
 
@@ -219,7 +220,7 @@ const getRankedActors = async (order: 'asc' | 'desc') => {
 };
 
 // Get top 10 actors (Hall of Fame)
-app.get('/api/actors/top', async (req: Request, res: Response) => {
+app.get('/api/actors/top', async (_req: Request, res: Response) => {
   try {
     const topActors = await getRankedActors('desc');
     res.json(topActors);
@@ -230,7 +231,7 @@ app.get('/api/actors/top', async (req: Request, res: Response) => {
 });
 
 // Get bottom 10 actors (Hall of Shame)
-app.get('/api/actors/bottom', async (req: Request, res: Response) => {
+app.get('/api/actors/bottom', async (_req: Request, res: Response) => {
   try {
     const bottomActors = await getRankedActors('asc');
     res.json(bottomActors);
