@@ -1,5 +1,7 @@
 # Are They Cool to Work With?
 
+<!-- Deployment Trigger -->
+
 A simple web application that allows people in the film industry to share their experiences working with actors. Users can rate actors on a scale from -10 to 10 and leave notes about their experiences.
 
 ## Features
