@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -19,13 +20,17 @@ interface RatingHistoryProps {
   actorName: string;
 }
 
+// Use environment variable for API URL
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'; // Fallback for safety
+
 export function RatingHistory({ actorId, actorName }: RatingHistoryProps) {
   const [ratings, setRatings] = useState<Rating[]>([]);
 
   useEffect(() => {
     const fetchRatings = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/actors/${actorId}/ratings`);
+        // Use the API_URL variable
+        const response = await fetch(`${API_URL}/actors/${actorId}/ratings`);
         const data = await response.json();
         setRatings(data);
       } catch (error) {

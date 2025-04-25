@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   BrowserRouter as Router,
@@ -45,7 +46,8 @@ import { RatingHistory } from './components/RatingHistory';
 import { Actor } from './types';
 import { useActorModal } from './hooks/useActorModal'; // Import the modal hook
 
-const API_URL = 'http://localhost:3001/api';
+// Use environment variable for API URL
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'; // Fallback for safety
 
 function AppContent() {
   const toast = useToast();

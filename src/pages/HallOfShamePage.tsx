@@ -4,7 +4,8 @@ import { ActorList } from '../components/ActorList';
 import { Actor } from '../types';
 import { useActorModal } from '../hooks/useActorModal';
 
-const API_URL = 'http://localhost:3001/api';
+// Use environment variable for API URL
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'; // Fallback for safety
 
 export function HallOfShamePage() {
   const [actors, setActors] = useState<Actor[]>([]);
