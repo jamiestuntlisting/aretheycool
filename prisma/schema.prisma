@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Actor {
-  id        Int      @id @default(autoincrement())
+  id        Int      @id @default(dbgenerated())
   name      String
   imdbUrl   String
   ratings   Rating[]
@@ -22,7 +22,7 @@ model Actor {
 }
 
 model Rating {
-  id        Int      @id @default(autoincrement())
+  id        Int      @id @default(dbgenerated())
   score     Int
   note      String?
   actor     Actor    @relation(fields: [actorId], references: [id])
@@ -31,4 +31,4 @@ model Rating {
   updatedAt DateTime @updatedAt
 
   @@index([actorId])
-} 
+}
